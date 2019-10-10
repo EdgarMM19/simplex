@@ -5,7 +5,6 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include "Rational.hh"
 
 
 using namespace std;
@@ -17,7 +16,7 @@ class Matrix {
 
 private:
 
-  vector<vector<Rational> > M;
+  vector<vector<long double> > M;
   int row,col;
 public:
 
@@ -29,14 +28,11 @@ public:
   Matrix operator*(const Matrix& a) const;
   Matrix operator-(const Matrix& a) const;
 
-  Matrix operator=(const Matrix& a) const;
+  Matrix operator=(const Matrix& a);
   Matrix inverse() const;
-  Matrix operator==(const Matrix& a) const;
-  Matrix operator!=(const Matrix& a) const;
+  bool operator==(const Matrix& a) const;
+  bool operator!=(const Matrix& a) const;
 
-  Matrix operator>(const Matrix& a) const;
-
-  Matrix operator<(const Matrix& a) const;
   static Matrix identity(int n);
 
 };
