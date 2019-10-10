@@ -13,7 +13,7 @@ class Rational {
 
 private:
 
-  int den,num;
+  long long den,num;
   int _gcd();
   void simplify();
 
@@ -22,18 +22,18 @@ public:
   
   Rational();
   Rational(int a,int b);  
-  Rational override operator+(const Rational& a) const;
+  Rational operator+(const Rational& a) const;
 
-  Rational override operator*(const Rational& a) const;
-  Rational override operator-(const Rational& a) const;
-  Rational override operator/(const Rational& a) const;
+  Rational operator* (const Rational& a) const;
+  Rational  operator-(const Rational& a) const;
+  Rational  operator/(const Rational& a) const;
 
-  Rational override operator==(const Rational& a) const;
-  Rational override operator!=(const Rational& a) const;
+  Rational  operator==(const Rational& a) const;
+  Rational  operator!=(const Rational& a) const;
 
-  Rational override operator>(const Rational& a) const;
+  Rational  operator>(const Rational& a) const;
 
-  Rational override operator<(const Rational& a) const;
+  Rational operator<(const Rational& a) const;
 
 
 };
