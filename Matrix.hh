@@ -34,10 +34,6 @@ public:
   Matrix override operator==(const Matrix& a) const;
   Matrix override operator!=(const Matrix& a) const;
 
-  Matrix override operator>(const Matrix& a) const;
-
-  Matrix override operator<(const Matrix& a) const;
-
 };
 
 #endif
