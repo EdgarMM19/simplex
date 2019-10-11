@@ -55,7 +55,33 @@ Bigint Bigint::_sum(Bigint const &A, Bigint const &B) {
 }
 
 Bigint Bigint::_minus(Bigint const &A, Bigint const &B) {
-    // TODO(jlcontreras): implement
+    Bigint S;
+    ll carry = 0;
+    int it = 0;
+    while (it < (int)B.digits.size()) {
+        if (A.digits[it] >= B.digits[it] + carry) {
+            S.digits.push_back(A.digits[it] - B.digits[it] - carry);
+            carry = 0;
+        }
+        else {
+            S.digits.push_back(BASE + A.digits[it] - B.digits[it] - carry);
+            carry = 1;
+        }
+        it++;
+    }
+    while (it < (int)A.digits.size()) {
+        if (A.digits[it] >= carry) {
+            S.digits.push_back(A.digits[it] - carry);
+            carry = 0;
+        }
+        else {
+            S.digits.push_back(BASE + A.digits[it] - carry);
+            carry = 1;       
+        }
+        it++;
+    }
+    while (S.digits.back() == 0) S.digits.pop_back();
+    return S;
 }
 
 Bigint Bigint::operator+(Bigint const &N) {
@@ -69,17 +95,17 @@ Bigint Bigint::operator+(Bigint const &N) {
     else if (neg) {
         Bigint _A(0, digits);
         if (_A > N) {
-            return _minus(_A, N);
+            Bigint M = _minus(_A, N);
+            M.neg = true;
+            return M;
         }
         else {
-            Bigint M = _minus(N, _A);
-            M.neg ^= 1;
-            return M;
+            return _minus(N, _A);
         }
     }
     else if (N.neg) {
         Bigint _A(0, digits);
-        Bigint _B(0, digits);
+        Bigint _B(0, N.digits);
         if (_A > _B) {
             return _minus(_A, _B);
         }
@@ -120,7 +146,7 @@ Bigint Bigint::operator-(Bigint const &N) {
         return _sum(_A, _B);
     }
     else {
-        Bigint _A(0, N.digits);
+        Bigint _A(0, digits);
         if (_A > N) {
             return _minus(_A, N);
         }
@@ -133,14 +159,32 @@ Bigint Bigint::operator-(Bigint const &N) {
 }
 
 bool Bigint::operator>(Bigint const &A) {
-    if (digits.size() > A.digits.size()) return true;
-    if (digits.size() < A.digits.size()) return false;
+    if (neg and A.neg) {
+        if (digits.size() > A.digits.size()) return false;
+        if (digits.size() < A.digits.size()) return true;
 
-    for (int i=(int)digits.size() - 1; i>=0; i--) {
-        if (digits[i] > A.digits[i]) return true;
-        if (digits[i] < A.digits[i]) return false;
+        for (int i=(int)digits.size() - 1; i>=0; i--) {
+            if (digits[i] > A.digits[i]) return false;
+            if (digits[i] < A.digits[i]) return true;
+        }
+        return false;
     }
-    return false;
+    else if(neg) {
+        return false;
+    }
+    else if(A.neg) {
+        return true;
+    }
+    else {
+        if (digits.size() > A.digits.size()) return true;
+        if (digits.size() < A.digits.size()) return false;
+
+        for (int i=(int)digits.size() - 1; i>=0; i--) {
+            if (digits[i] > A.digits[i]) return true;
+            if (digits[i] < A.digits[i]) return false;
+        }
+        return false;
+    }
 }
 
 ostream& operator<<(ostream& os, Bigint const &M) {
