@@ -41,6 +41,10 @@ bool Bigint::operator==(Bigint const &A) const {
     return not ((*this > A) or (*this < A));
 }
 
+bool Bigint::operator!=(Bigint const &A) const {
+    return not (*this == A);
+}
+
 bool Bigint::operator<=(Bigint const &A) const {
     return not (*this > A);
 }

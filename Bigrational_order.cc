@@ -16,6 +16,10 @@ bool Bigrational::operator==(Bigrational const &A) const {
     return not ((*this > A) or (*this < A));
 }
 
+bool Bigrational::operator!=(Bigrational const &A) const {
+    return not (*this == A);
+}
+
 bool Bigrational::operator<=(Bigrational const &A) const {
     return not (*this > A);
 }

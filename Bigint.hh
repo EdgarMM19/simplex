@@ -39,6 +39,7 @@ class Bigint {
         bool operator>(Bigint const &N) const;
         bool operator<(Bigint const &N) const;
         bool operator==(Bigint const &N) const;
+        bool operator!=(Bigint const &N) const;
         bool operator>=(Bigint const &N) const;
         bool operator<=(Bigint const &N) const;
         

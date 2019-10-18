@@ -30,6 +30,7 @@ class Bigrational {
         bool operator>(Bigrational const &N) const;
         bool operator<(Bigrational const &N) const;
         bool operator==(Bigrational const &N) const;
+        bool operator!=(Bigrational const &N) const;
         bool operator>=(Bigrational const &N) const;
         bool operator<=(Bigrational const &N) const;
         
