@@ -26,6 +26,7 @@ class Bigint {
         static bool isZero(Bigint const &A);
 
         Bigint operator+(Bigint const &N) const;
+        Bigint operator-() const;
         Bigint operator-(Bigint const &N) const;
         Bigint operator*(Bigint const &N) const;
         Bigint operator/(Bigint const &N) const;

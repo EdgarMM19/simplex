@@ -91,6 +91,10 @@ Bigint Bigint::operator-(Bigint const &N) const {
     return *this + opposite(N);
 }
 
+Bigint Bigint::operator-() const {
+    return opposite(*this);
+}
+
 void Bigint::operator+=(Bigint const &N) {
     *this = (*this) + N;
 };

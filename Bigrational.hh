@@ -20,6 +20,7 @@ class Bigrational {
 
         Bigrational operator+(Bigrational const &N) const;
         Bigrational operator-(Bigrational const &N) const;
+        Bigrational operator-() const;
         Bigrational operator*(Bigrational const &N) const;
         Bigrational operator/(Bigrational const &N) const;
         void operator+=(Bigrational const &N);

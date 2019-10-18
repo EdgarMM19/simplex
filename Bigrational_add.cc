@@ -13,6 +13,10 @@ Bigrational Bigrational::operator-(Bigrational const &N) const {
     return *this + opposite(N);
 }
 
+Bigrational Bigrational::operator-() const {
+    return opposite(*this);
+}
+
 void Bigrational::operator+=(Bigrational const &N) {
     *this = (*this) + N;
 }
