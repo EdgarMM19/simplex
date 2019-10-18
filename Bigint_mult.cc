@@ -38,5 +38,23 @@ Bigint Bigint::operator/(Bigint const &N) const {
         else if (N*M == (*this)) return M;
         else L = M;
     }
+    if (N*R <= (*this)) return R;
     return L;
 }
+
+Bigint Bigint::operator%(Bigint const &N) const {
+    Bigint R = (*this)/N;
+    return (*this) - R*N;
+}
+
+void Bigint::operator*=(Bigint const &N) {
+    *this = (*this) * N;
+};
+
+void Bigint::operator/=(Bigint const &N) {
+    *this = (*this) / N;
+};
+
+void Bigint::operator%=(Bigint const &N) {
+    *this = (*this) % N;
+};

@@ -31,6 +31,11 @@ Bigint Bigint::opposite(Bigint const &A) {
     return Bigint(A.neg^1, A.digits);
 };
 
+Bigint Bigint::gcd(Bigint const &A, Bigint const &B) {
+    if (isZero(B)) return A;
+    else return gcd(B, A%B);
+};
+
 Bigint Bigint::div2(Bigint const &A) {
     if (A.neg) return opposite(div2(opposite(A)));
     if (isZero(A)) return 0;
@@ -39,7 +44,7 @@ Bigint Bigint::div2(Bigint const &A) {
     Bigint S;
     for (int i=(int)A.digits.size()-1; i>=0; i--) {
         S.digits.push_back(A.digits[i]/2 + c);
-        if (A.digits[i]%2 == 1) c = 5;
+        if (A.digits[i]%2 == 1) c = BASE/2;
         else c = 0;
     }
     reverse(S.digits.begin(), S.digits.end());
