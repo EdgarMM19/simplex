@@ -12,7 +12,7 @@ using vvr = vector<vr>;
 //given a,b,c and an initial x and base st x is a SBF
 //minimizes c*x, restricted to a*x = b,
 //returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated
-int phase2(vvr& a, vvr& x, vvr& b, vvr& c, vr& vb, bool bland){
+int phase2(const vvr& a, vvr& x,const vvr& b,const vvr& c, vector<int>& vb,const bool bland){
 
 
     //iteracions while true
@@ -28,20 +28,52 @@ int phase2(vvr& a, vvr& x, vvr& b, vvr& c, vr& vb, bool bland){
 }
 
 
-//given a,b,c
+//given a,b,c 
+
+
+
+//to check? 
+//b>=0 ??????????
+
+
+
+
 //minimizes c*x, restricted to a*x = b,
 //returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
-int simplex(vvr& a, vvr& b, vvr& c, vvr& xsol, bool bland){
+int simplex(const vvr& a,const vvr& b,const vvr& c, vvr& xsol,const bool bland){
 
-
+    int n = c.size(), m = a.size();
     //iniciar a ampliada,construir nova b
 
     //cridar phase2 x resoldre fase 1
+    vr x(n+m,Bigrational(0));
+    vr cPhase1(n+m,Bigrational(0));
+    vector<int> vbPhase1;
+    for(int i = n; i < n+m; ++i) {
+        cPhase1[i]=x[i]=Bigrational(1);
+        vb.push_back(i);
+    }
+    vvr aPhase1(m,vr(n+m,Bigrational(0)));
+    for(int i = 0; i < m; ++i){
+        for(int j = 0; j < n; ++j)
+            aPhase1[i][j] = a[i][j];
+        aPhase1[i][i+n] = Bigrational(1);
+    }
+    int resultPhase1 = phase2(aPhase1,x,b,cPhase1,vb,bland);
 
     //comprovar si existeix SBF
+    bool factible = true;
+    for(int i = n; i < n+m; ++i)
+        if(x[i] > EPS)
+            factible = false;
+    if(not factible)
+        return 4;
 
     //cridar phase2 amb la SBF trobada i la a,b,c originals
-
+    xsol = vr(n);
+    for(int i = 0; i < n; ++i)
+        xsol[i] = x[i];
+    return phase2(a,xsol,b,c,vb,bland);
     //resultat
     
 }
