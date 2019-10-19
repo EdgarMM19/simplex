@@ -46,9 +46,9 @@ vector<Bigrational> simplex(vector<vector<Bigrational> > A,
     const int n = c.size(), m = b.size(); //n var, m eq
     // make b positive
     for (int i=0; i<m; i++) {
-        if (b[i] < Bigrational(0, 1)) {
-            for (int j=0; j<n; j++) A[i][j] *= Bigrational(-1, 1);
-            b[i] *= Bigrational(-1, 1);
+        if (b[i] < Bigrational(0)) {
+            for (int j=0; j<n; j++) A[i][j] *= Bigrational(-1);
+            b[i] *= Bigrational(-1);
         }
     }
     // list of base/independent variable ids
@@ -57,15 +57,15 @@ vector<Bigrational> simplex(vector<vector<Bigrational> > A,
     for (int i=0; i<n; i++) nx[i] = i; // real independent
     // extend A, b
     A.resize(m + 2);
-    for (int i=0; i<m+2; i++) A[i].resize(n + m, Bigrational(0, 1)); // aux vars
-    for (int i=0; i<m; i++) A[i][n + i] = Bigrational(1, 1); // aux vars
+    for (int i=0; i<m+2; i++) A[i].resize(n + m, Bigrational(0)); // aux vars
+    for (int i=0; i<m; i++) A[i][n + i] = Bigrational(1); // aux vars
     for (int i=0; i<m; i++) {
         for (int j=0; j<n; j++) A[m][j] = A[m][j] + A[i][j]; // row m is phase 0 costs
     }
-    b.push_back(accumulate(b.begin(), b.end(), Bigrational(0, 1))); // row m is phase 0 costs
+    b.push_back(accumulate(b.begin(), b.end(), Bigrational(0))); // row m is phase 0 costs
     for (int j=0; j<n; j++) A[m + 1][j] = -c[j]; // row m+1 is costs
     for (int i=0; i<m; i++) A[m + 1][n + i] = -INF; // aux costs
-    b.push_back(Bigrational(0, 1));
+    b.push_back(Bigrational(0));
     vector<vector<Bigrational> > A_(A);
     vector<Bigrational> b_(b);
     vector<Bigint> forbidden(n + m, false);
