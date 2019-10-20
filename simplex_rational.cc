@@ -75,6 +75,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             const bool bland, vvr& invAb, int& iter){
 
     int m = a.size(), n = x.size(), nB = n-m;
+    set<vector<int>> cicle; 
     while (++iter) {
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
@@ -103,6 +104,9 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             for(int i = 0; i < nB; ++i)
                 if((q == -1 and r[i] < Bigrational(0)) or (q != -1 and r[i] < r[q]))
                     q = vnb[i];
+            if(cicle.count(vb) == 1)
+                return 3;
+            cicle.insert(vb);
         }
         cerr << "Q trobada!" << endl;
        

@@ -73,6 +73,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             const bool bland, vvr& invAb, int& iter){
 
     int m = a.size(), n = x.size(), nB = n-m;
+    set<vector<int>> cicle; 
     while (++iter) {
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
@@ -100,6 +101,9 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             for(int i = 0; i < nB; ++i)
                 if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < r[q]))
                     q = vnb[i];
+            if(cicle.count(vb) == 1)
+                return 3;
+            cicle.insert(vb);
         }
        
         // calcular d
@@ -122,7 +126,6 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             }
         }
 
-        // TODO: si no aplica bland comprovar si estem ciclant???
         // x = x + theta*d;
         for(int i = 0; i < m; ++i)
             x[vb[i]] += theta*d[i];
@@ -179,6 +182,10 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     cerr << "Inici fase 1: \n";
     int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, vnbPhase1, bland, invAb, iter);
     
+    //TODO: problemes de degeneracio?
+    //es poden guardar les degenerades i canviarles per nb no no artificials qualsevols
+    //caldria updatejar la inversa amb la mateixa recalculateAbinv?
+    //pero no totes serveixen -> es un puto palo
     // eliminem les variables extres
     sort(vnbPhase1.begin(), vnbPhase1.end());
     for (int i=0; i<m; i++) vnbPhase1.pop_back();
