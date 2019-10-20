@@ -82,7 +82,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
     }
 
     while (iter++) {
-        cerr << "Iteracio " << iter << ": \n";
+        cerr << "Iteracio " << iter << ": ";
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
         vr r = calculateR(c, invAb, vb, vnb, a);
@@ -135,6 +135,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
         // x = x + theta*d;
 
         x[q] = theta;
+        cerr << "p: " << p << ", q: " << q << ", theta*: " << theta << "\n";
         for(int i = 0; i < m; ++i)
             x[vb[i]] += theta*d[i];
 
@@ -194,7 +195,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     return phase2(a, xsol, b, c, vbPhase1, bland, invAb, iter);
 }
 
-int main() {
+int main2() {
     int n, m;
     cin >> n >> m;
     

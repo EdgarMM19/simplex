@@ -82,11 +82,9 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
             itBas++;
     }
 
-    while (iter++) {
+    while (++iter) {
         cerr << "Iteracio " << iter << ": \n";
-        ld sol = 0;
-        for (int i=0; i<n; i++) sol += c[i]*x[i];
-        cout << sol << endl; 
+        
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
         vr r = calculateR(c, invAb, vb, vnb, a);
@@ -141,7 +139,11 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
         x[q] = theta;
         for(int i = 0; i < m; ++i)
             x[vb[i]] += theta*d[i];
-
+        ld sol = 0;
+        for (int i=0; i<n; i++) sol += c[i]*x[i];
+        cerr << "p: " << p << ", q: " << q << ", theta*: " << theta << ", sol:"<< sol << "x: \n";
+        for(int i = 0; i < n; ++i)
+            cerr << x[i] << "\n";
         for(int i = 0; i < nB; ++i)
             if(vnb[i] == q)
                 vnb[i] = vb[p];
@@ -157,7 +159,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
 int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     int n = c.size(), m = a.size();
     // iniciar a ampliada,construir nova b
-    int iter = 1;
+    int iter = 0;
     vr x(n+m, ld(0));
     vr cPhase1(n+m, ld(0));
     vector<int> vbPhase1;
@@ -172,12 +174,14 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
         invAb[i][i] = ld(1);
 
     vvr aPhase1(m, vr(n+m, ld(0)));
+
     for(int i = 0; i < m; ++i){
         for(int j = 0; j < n; ++j)
             aPhase1[i][j] = a[i][j];
         aPhase1[i][i+n] = ld(1);
     }
-
+    for(int i = 0; i < n+m; ++i)
+            cerr << x[i] << "\n";
     cerr << "Inici fase 1: \n";
     int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, bland, invAb, iter);
 
@@ -228,11 +232,11 @@ int main() {
     vr sol;
     int solFinal = simplex(A, B, C, sol, true);
     
-    cout << solFinal << " -> " << endl;
+    cout << solFinal << " -> x:" << endl;
     ld ans(0);
-    for (int i=0; i<(int)C.size(); i++) {
+    for (int i=0; i<(int)C.size() and i <(int)sol.size(); i++) {
         ans += C[i]*sol[i];
-        cout << sol[i] << endl;
+        cerr << sol[i] << endl;
     }
     cout << "opt: " << ans << endl;
 }
