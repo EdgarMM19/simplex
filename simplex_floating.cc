@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define DEBUG(cnt) {cerr << #cnt << ": "; for(auto vrb : cnt) cerr << vrb << ", "; cerr << endl;}
 
 using ld = long double;
 using vr = vector<ld>;
@@ -13,7 +14,7 @@ vector<ld> calculateR(const vr& c, const vvr& invAb,
                                 const vector<int>& vnb, const vvr& A){
 
     vr r;
-    int nb = vnb.size(),m=invAb.size();
+    int nb = vnb.size(), m = invAb.size();
     
     // TODO: r = cn - cb * invAb * An
     for(int i = 0; i < nb; ++i) r.push_back(c[vnb[i]]);
@@ -52,39 +53,27 @@ void recalculateAbinv(vvr& invAb, int p, const vr& d) {
     int m = invAb.size();
     vr E(m);
     for (int i=0; i<m; i++) {
-        if (i == p) E[i] = ld(1)/d[p];
-        else E[i] = -d[i]/d[p];
+        E[i] = -d[i]/d[p];
     }
-    vvr _invAb(m, vr(m));
+    E[p] = -1.0/d[p] - 1;
+    
+    vr L = invAb[p];
     for (int i=0; i<m; i++) {
         for (int j=0; j<m; j++) {
-            if(i != p) _invAb[i][j] = invAb[i][j] + E[p]*invAb[p][j];
-            else _invAb[i][j] = E[p]*invAb[p][j];
+            invAb[i][j] += E[i]*L[j];
         }
     }
-    invAb = _invAb;
 }
 
 // given a,b,c and an initial x and base st x is a SBF
 // minimizes c*x, restricted to a*x = b,
 // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated
-int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
+int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
+            vector<int>& vb, vector<int>& vnb,
             const bool bland, vvr& invAb, int& iter){
 
     int m = a.size(), n = x.size(), nB = n-m;
-    
-    vector<int> vnb;
-    int itBas = 0;
-    for(int i = 0; i < n; ++i){
-        if(itBas >= m or vb[itBas] != i)
-            vnb.push_back(i);
-        else
-            itBas++;
-    }
-
     while (++iter) {
-        cerr << "Iteracio " << iter << ": \n";
-        
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
         vr r = calculateR(c, invAb, vb, vnb, a);
@@ -135,19 +124,23 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
 
         // TODO: si no aplica bland comprovar si estem ciclant???
         // x = x + theta*d;
-
-        x[q] = theta;
         for(int i = 0; i < m; ++i)
             x[vb[i]] += theta*d[i];
+        x[q] = theta;
+
         ld sol = 0;
         for (int i=0; i<n; i++) sol += c[i]*x[i];
-        cerr << "p: " << p << ", q: " << q << ", theta*: " << theta << ", sol:"<< sol << "x: \n";
-        for(int i = 0; i < n; ++i)
-            cerr << x[i] << "\n";
+        
+        cerr << "Iteracio " << iter << ": \n";
+        cerr << "vb[p]: " << vb[p] << ", q: " << q << ", theta*: " << theta << ", sol:"<< sol << "\n";
         for(int i = 0; i < nB; ++i)
             if(vnb[i] == q)
                 vnb[i] = vb[p];
         vb[p] = q;
+        DEBUG(vb); DEBUG(vnb);
+        DEBUG(x); DEBUG(d);
+        cerr << endl;
+        
 
         // recalcular invAb
         recalculateAbinv(invAb, p, d);
@@ -163,11 +156,14 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     vr x(n+m, ld(0));
     vr cPhase1(n+m, ld(0));
     vector<int> vbPhase1;
+    vector<int> vnbPhase1;
     for(int i = n; i < n+m; ++i) {
         cPhase1[i] = ld(1);
         x[i] = b[i-n];
         vbPhase1.push_back(i);
     }
+    for (int i=0; i<n; i++)
+        vnbPhase1.push_back(i);
 
     vvr invAb(m, vr(m, ld(0)));
     for(int i = 0; i < m; ++i)
@@ -180,10 +176,12 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
             aPhase1[i][j] = a[i][j];
         aPhase1[i][i+n] = ld(1);
     }
-    for(int i = 0; i < n+m; ++i)
-            cerr << x[i] << "\n";
     cerr << "Inici fase 1: \n";
-    int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, bland, invAb, iter);
+    int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, vnbPhase1, bland, invAb, iter);
+    
+    // eliminem les variables extres
+    sort(vnbPhase1.begin(), vnbPhase1.end());
+    for (int i=0; i<m; i++) vnbPhase1.pop_back();
 
     // comprovar si existeix SBF
     bool factible = true;
@@ -199,7 +197,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
         xsol[i] = x[i];
 
     cerr << "Inici fase 2: \n";
-    return phase2(a, xsol, b, c, vbPhase1, bland, invAb, iter);
+    return phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
 }
 
 int main() {

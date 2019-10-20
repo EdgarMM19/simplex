@@ -2,17 +2,27 @@
 using namespace std;
 
 typedef long long ll;
+typedef long double ld;
 typedef vector<ll> vll;
 // BASE tiene que ser par
 const ll BASE = 1e9;
 
 class Bigint {
     private:
+    public:
+        struct comp {
+            ld r, c;
+        };
+        static comp cmult(comp a, comp b);
+        static ll creverse(ll a, ll p);
+        static vector <comp> fft(vector <comp>v, ll m, ll p);
+        static vector <comp> ifft(vector <comp>v, ll m, ll p);
+        static vll __mult__(const vll& s, const vll& t);
+            
         // A and B are positive
         Bigint _sum(Bigint const &A, Bigint const &B) const;
         // A and B are positive and A >= B
         Bigint _minus(Bigint const &A, Bigint const &B) const;
-    public:
         bool neg;
         vll digits;
 

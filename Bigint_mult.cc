@@ -7,22 +7,7 @@ Bigint Bigint::operator*(Bigint const &N) const {
     if (neg) return opposite(opposite(*this)*N);
     if (N.neg) return opposite((*this)*opposite(N));
 
-    Bigint R(0);
-    if (isZero(*this) or isZero(N)) return R;
-
-    for (int i=0; i<(int)digits.size(); i++) {
-        Bigint T;
-        for (int j=0; j<i; j++) T.digits.push_back(0LL);
-        ll c = 0;
-        for (int j=0; j<(int)N.digits.size(); j++) {
-            ll d = digits[i]*N.digits[j] + c;
-            T.digits.push_back(d%BASE);
-            c = d/BASE;
-        }
-        if (c != 0) T.digits.push_back(c);
-        R = R + T;
-    }
-    return R;
+    return Bigint(0, __mult__(this->digits, N.digits));
 }
 
 Bigint Bigint::operator/(Bigint const &N) const {
