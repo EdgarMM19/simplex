@@ -200,7 +200,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     return phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
 }
 
-int main() {
+int main2() {
     int n, m;
     cin >> n >> m;
     

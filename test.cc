@@ -2,7 +2,7 @@
 #include "Bigrational.hh"
 using namespace std;
 
-int main() {
+int main3() {
     Bigint A(1);
     for (int i=1; i<100; i++) {
         A *= Bigint(i);
