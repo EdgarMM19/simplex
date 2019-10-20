@@ -14,6 +14,7 @@ class Bigrational {
         Bigrational(ll const &a, ll const &b);
         Bigrational(ll const &a);
         Bigrational(Bigint const &A, Bigint const &B);
+        Bigrational(Bigint const &A);
 
         static Bigrational simplify(Bigrational const &A);
         static Bigrational opposite(Bigrational const &A);
