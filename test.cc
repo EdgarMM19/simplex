@@ -2,7 +2,7 @@
 #include "Bigrational.hh"
 using namespace std;
 
-int main() {
+int xmain() {
     Bigint A(1);
     Bigrational R(1, 1);
     for (int i=1; i<100; i++) {
@@ -11,4 +11,5 @@ int main() {
         R += Z;
         cout << i << ": " << R << endl;
     }
+    return 0;
 }

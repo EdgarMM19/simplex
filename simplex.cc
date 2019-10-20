@@ -121,7 +121,7 @@ vector<Bigrational> simplex(vector<vector<Bigrational> > A,
     x.resize(n);
     return x;
 }
-
+/*
 int main() {
     int n, m;
     cin >> n >> m;
@@ -156,4 +156,4 @@ int main() {
         ans += C[i]*sol[i];
     }
     cout << "opt: " << ans << endl;
-}
+}*/

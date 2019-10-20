@@ -12,8 +12,12 @@ Bigrational::Bigrational(ll const &a, ll const &b) {
 }
 
 
-Bigrational::Bigrational(Bigint const &A) {
-    NUM = A;
+Bigrational::Bigrational(Bigint const &a) {
+    NUM = a;
+    DEN = Bigint(1);
+}
+Bigrational::Bigrational(ll const &a) {
+    NUM = Bigint(a);
     DEN = Bigint(1);
 }
 Bigrational::Bigrational(Bigint const &A, Bigint const &B) {
