@@ -15,15 +15,6 @@ Bigrational::Bigrational(ll const &a) {
     (*this) = Bigrational(Bigint(a), Bigint(1));
 }
 
-Bigrational::Bigrational(Bigint const &a) {
-    NUM = a;
-    DEN = Bigint(1);
-}
-Bigrational::Bigrational(ll const &a) {
-    NUM = Bigint(a);
-    DEN = Bigint(1);
-}
-
 Bigrational::Bigrational(Bigint const &A, Bigint const &B) {
     NUM = A;
     DEN = B;
@@ -36,6 +27,11 @@ Bigrational::Bigrational(Bigint const &A, Bigint const &B) {
         Bigrational A = simplify(*this);
         *this = A;
     }
+}
+
+Bigrational::Bigrational(Bigint const &a) {
+    NUM = a;
+    DEN = Bigint(1);
 }
 
 Bigrational Bigrational::opposite(Bigrational const &A) {

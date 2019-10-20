@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
-#include "Bigrational.hh"
 using namespace std;
 
-const Bigrational INF(1,0);
 
-using vr = vector<Bigrational>;
+using ld = long double;
+using vr = vector<ld>;
 using vvr = vector<vr>;
 
-vector<Bigrational> calculateR(const vr& c, const vvr& invAb, 
+const ld INF = 1e9;
+
+vector<ld> calculateR(const vr& c, const vvr& invAb, 
                                 const vector<int>& vb, 
                                 const vector<int>& vnb, const vvr& A){
 
@@ -17,13 +18,13 @@ vector<Bigrational> calculateR(const vr& c, const vvr& invAb,
     // TODO: r = cn - cb * invAb * An
     for(int i = 0; i < nb; ++i) r.push_back(c[vnb[i]]);
     
-    vr aux(m, Bigrational(0));
+    vr aux(m, ld(0));
     for(int i = 0; i < m; ++i)
         for(int j = 0; j < m; ++j)
             aux[i] -= c[vb[j]]*invAb[j][i];
     
     // EXPLAIN: (1,n-m o nb)+(-(1,m)*(m,m))*(m,n-m o nb)
-    vr aux2(nb,Bigrational(0));
+    vr aux2(nb,ld(0));
     for(int i = 0; i < nb; ++i)
         for(int j = 0; j < m; ++j)
             aux2[i] += aux[j]*A[j][vnb[i]];
@@ -34,11 +35,11 @@ vector<Bigrational> calculateR(const vr& c, const vvr& invAb,
     return r;
 }
 
-vector<Bigrational> calculateD(const vvr& invAb, 
+vector<ld> calculateD(const vvr& invAb, 
                                 int q, const vvr& A){
     // d = -invAb*Aq
     int m = invAb.size();
-    vr d(m,Bigrational(0));
+    vr d(m,ld(0));
 
     for(int i = 0; i < m; ++i)
         for(int j = 0; j < m; ++j)
@@ -51,7 +52,7 @@ void recalculateAbinv(vvr& invAb, int p, const vr& d) {
     int m = invAb.size();
     vr E(m);
     for (int i=0; i<m; i++) {
-        if (i == p) E[i] = Bigrational(1)/d[p];
+        if (i == p) E[i] = ld(1)/d[p];
         else E[i] = -d[i]/d[p];
     }
     vvr _invAb(m, vr(m));
@@ -83,6 +84,9 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
 
     while (iter++) {
         cerr << "Iteracio " << iter << ": \n";
+        ld sol = 0;
+        for (int i=0; i<n; i++) sol += c[i]*x[i];
+        cout << sol << endl; 
         // calcular Ab^-1 un cop i despres updatejar????
         // calcular r
         vr r = calculateR(c, invAb, vb, vnb, a);
@@ -91,7 +95,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
 
         // si r >= 0 acabat
         for(int i = 0; i < nB; ++i)
-            if(r[i] < Bigrational(0))
+            if(r[i] < ld(0))
                 optim = false;
         if(optim) return 1;
 
@@ -101,13 +105,13 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
         if(bland){
             // per la regla de bland
             for(int i = 0; i < nB; ++i)
-                if(r[i] < Bigrational(0) and (q == -1 or vnb[i] < q))
+                if(r[i] < ld(0) and (q == -1 or vnb[i] < q))
                     q = vnb[i];
         }
         else{
             // pel minim cost reduit
             for(int i = 0; i < nB; ++i)
-                if((q == -1 and r[i] < Bigrational(0)) or (q != -1 and r[i] < r[q]))
+                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < r[q]))
                     q = vnb[i];
         }
        
@@ -118,14 +122,14 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c, vector<int>& vb,
         bool unbounded = true;
 
         for(int i = 0; i < m; ++i)
-            if(d[i] < Bigrational(0)) unbounded = false;
+            if(d[i] < ld(0)) unbounded = false;
         if(unbounded) return 2;
 
         // p posicio a la base de la variable que surt
         int p = -1;
-        Bigrational theta = INF;
+        ld theta = INF;
         for(int i = 0; i < m; ++i){
-            if(d[i] < Bigrational(0) and ((-x[vb[i]])/d[i] < theta or (-x[vb[i]]/d[i] == theta and vb[i] < vb[p]))){
+            if(d[i] < ld(0) and ((-x[vb[i]])/d[i] < theta or (-x[vb[i]]/d[i] == theta and vb[i] < vb[p]))){
                 theta = -x[vb[i]]/d[i];
                 p = i;
             }
@@ -154,24 +158,24 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     int n = c.size(), m = a.size();
     // iniciar a ampliada,construir nova b
     int iter = 1;
-    vr x(n+m, Bigrational(0));
-    vr cPhase1(n+m, Bigrational(0));
+    vr x(n+m, ld(0));
+    vr cPhase1(n+m, ld(0));
     vector<int> vbPhase1;
     for(int i = n; i < n+m; ++i) {
-        cPhase1[i] = Bigrational(1);
+        cPhase1[i] = ld(1);
         x[i] = b[i-n];
         vbPhase1.push_back(i);
     }
 
-    vvr invAb(m, vr(m, Bigrational(0)));
+    vvr invAb(m, vr(m, ld(0)));
     for(int i = 0; i < m; ++i)
-        invAb[i][i] = Bigrational(1);
+        invAb[i][i] = ld(1);
 
-    vvr aPhase1(m, vr(n+m, Bigrational(0)));
+    vvr aPhase1(m, vr(n+m, ld(0)));
     for(int i = 0; i < m; ++i){
         for(int j = 0; j < n; ++j)
             aPhase1[i][j] = a[i][j];
-        aPhase1[i][i+n] = Bigrational(1);
+        aPhase1[i][i+n] = ld(1);
     }
 
     cerr << "Inici fase 1: \n";
@@ -180,7 +184,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     // comprovar si existeix SBF
     bool factible = true;
     for(int i = n; i < n+m; ++i)
-        if(x[i] > Bigrational(0)) factible = false;
+        if(x[i] > ld(0)) factible = false;
     
     if(not factible)
         return 4;
@@ -198,34 +202,34 @@ int main() {
     int n, m;
     cin >> n >> m;
     
-    vector<vector<Bigrational>> A(n, vector<Bigrational>(m));
+    vector<vector<ld>> A(n, vector<ld>(m));
     for (int i=0; i<n; i++) {
         for (int j=0; j<m; j++) {
             int x;
             cin >> x;
-            A[i][j] = Bigrational(x);
+            A[i][j] = ld(x);
         }
     }
 
-    vector<Bigrational> B(n);
+    vector<ld> B(n);
     for (int i=0; i<n; i++) {
         int x;
         cin >> x;
-        B[i] = Bigrational(x);
+        B[i] = ld(x);
     }
     
-    vector<Bigrational> C(m);
+    vector<ld> C(m);
     for (int i=0; i<m; i++) {
         int x;
         cin >> x;
-        C[i] = Bigrational(x);
+        C[i] = ld(x);
     }
 
     vr sol;
     int solFinal = simplex(A, B, C, sol, true);
     
     cout << solFinal << " -> " << endl;
-    Bigrational ans(0);
+    ld ans(0);
     for (int i=0; i<(int)C.size(); i++) {
         ans += C[i]*sol[i];
         cout << sol[i] << endl;
