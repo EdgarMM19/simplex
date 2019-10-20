@@ -15,8 +15,12 @@ Bigrational::Bigrational(ll const &a) {
     (*this) = Bigrational(Bigint(a), Bigint(1));
 }
 
-Bigrational::Bigrational(Bigint const &A) {
-    NUM = A;
+Bigrational::Bigrational(Bigint const &a) {
+    NUM = a;
+    DEN = Bigint(1);
+}
+Bigrational::Bigrational(ll const &a) {
+    NUM = Bigint(a);
     DEN = Bigint(1);
 }
 
