@@ -93,17 +93,23 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         // seleccionar q dentrada
         // q index real que entra
         int q = -1;
+        Bigrational rq(0);
         if(bland){
             // per la regla de bland
             for(int i = 0; i < nB; ++i)
-                if(r[i] < Bigrational(0) and (q == -1 or vnb[i] < q))
+                if(r[i] < Bigrational(0) and (q == -1 or vnb[i] < q)){
                     q = vnb[i];
+                    rq = r[i];
+                }
         }
         else{
             // pel minim cost reduit
             for(int i = 0; i < nB; ++i)
-                if((q == -1 and r[i] < Bigrational(0)) or (q != -1 and r[i] < r[q]))
+                if((q == -1 and r[i] < Bigrational(0)) or (q != -1 and r[i] < r[q])){
                     q = vnb[i];
+                    
+                    rq = r[i];
+                }
             if(cicle.count(vb) == 1)
                 return 3;
             cicle.insert(vb);
@@ -141,14 +147,13 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         Bigrational sol = 0;
         for (int i=0; i<n; i++) sol += c[i]*x[i];
         
-        cerr << "Iteracio " << iter << ": \n";
-        cerr << "vb[p]: " << vb[p] << ", q: " << q << ", theta*: " << theta << ", sol:"<< sol << "\n";
+        cout << "Iteracio " << iter << ": \n";
+        cout << "q: " << q+1 << ", rq = " << rq << ", B(p): " << vb[p]+1 <<  ", theta*: " << theta << ", z: "<< sol << "\n";
+    
         for(int i = 0; i < nB; ++i)
             if(vnb[i] == q)
                 vnb[i] = vb[p];
         vb[p] = q;
-        DEBUG(vb); DEBUG(vnb);
-        DEBUG(x); DEBUG(d);
         cerr << endl;
         
 
@@ -208,7 +213,28 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
         xsol[i] = x[i];
 
     cerr << "Inici fase 2: \n";
-    return phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
+    int solKind = phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
+    if (solKind == 1){
+        cout << "An optimal solution has been found:" << endl;
+        cout << "VB*:" << endl;
+        for(int i = 0; i < vbPhase1.size(); ++i)
+            cout << " " << vbPhase1[i]+1;
+        cout << endl;
+        cout << "VNB*:" << endl;
+        for(int i = 0; i < vnbPhase1.size(); ++i)
+            cout << " " << vnbPhase1[i]+1;
+        cout << endl;
+        cout << "x*:" << endl;
+        Bigrational ans(0);
+        for (int i=0; i<(int)c.size() and i <(int)xsol.size(); i++) {
+            ans += c[i]*xsol[i];
+            cout << "    " << xsol[i] << endl;
+        }
+        cout << "z*: " << ans << endl;
+        
+    }
+    return solKind;
+    
 }
 
 int main() {
@@ -239,13 +265,12 @@ int main() {
     }
 
     vr sol;
+    // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
     int solFinal = simplex(A, B, C, sol, true);
-    
-    cout << solFinal << " -> x:" << endl;
-    Bigrational ans(0);
-    for (int i=0; i<(int)C.size() and i <(int)sol.size(); i++) {
-        ans += C[i]*sol[i];
-        cerr << sol[i] << endl;
-    }
-    cout << "opt: " << ans << endl;
+    if(solFinal == 2)
+        cout << "The problem is unbounded" << endl;
+    else if(solFinal == 3)
+        cout << "The problem is degenerated" << endl;
+    else if(solFinal == 4)
+        cout << "The are not factible solutions" << endl;
 }

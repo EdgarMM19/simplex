@@ -16,7 +16,6 @@ vector<ld> calculateR(const vr& c, const vvr& invAb,
     vr r;
     int nb = vnb.size(), m = invAb.size();
     
-    // TODO: r = cn - cb * invAb * An
     for(int i = 0; i < nb; ++i) r.push_back(c[vnb[i]]);
     
     vr aux(m, ld(0));
@@ -24,7 +23,6 @@ vector<ld> calculateR(const vr& c, const vvr& invAb,
         for(int j = 0; j < m; ++j)
             aux[i] -= c[vb[j]]*invAb[j][i];
     
-    // EXPLAIN: (1,n-m o nb)+(-(1,m)*(m,m))*(m,n-m o nb)
     vr aux2(nb,ld(0));
     for(int i = 0; i < nb; ++i)
         for(int j = 0; j < m; ++j)
@@ -38,7 +36,7 @@ vector<ld> calculateR(const vr& c, const vvr& invAb,
 
 vector<ld> calculateD(const vvr& invAb, 
                                 int q, const vvr& A){
-    // d = -invAb*Aq
+    
     int m = invAb.size();
     vr d(m,ld(0));
 
@@ -85,22 +83,31 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         for(int i = 0; i < nB; ++i)
             if(r[i] < ld(0))
                 optim = false;
-        if(optim) return 1;
-
+        if(optim){
+            cout << "Iteration " << iter << "\n";
+            cout << "Optimal found \n";
+            
+            return 1;
+        }
         // seleccionar q dentrada
         // q index real que entra
         int q = -1;
+        ld rq = 0;
         if(bland){
             // per la regla de bland
             for(int i = 0; i < nB; ++i)
-                if(r[i] < ld(0) and (q == -1 or vnb[i] < q))
+                if(r[i] < ld(0) and (q == -1 or vnb[i] < q)){
                     q = vnb[i];
+                    rq = r[i];
+                }
         }
         else{
             // pel minim cost reduit
             for(int i = 0; i < nB; ++i)
-                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < r[q]))
+                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < r[q])){
                     q = vnb[i];
+                    rq = r[i];
+                }
             if(cicle.count(vb) == 1)
                 return 3;
             cicle.insert(vb);
@@ -134,14 +141,13 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         ld sol = 0;
         for (int i=0; i<n; i++) sol += c[i]*x[i];
         
-        cerr << "Iteracio " << iter << ": \n";
-        cerr << "vb[p]: " << vb[p] << ", q: " << q << ", theta*: " << theta << ", sol:"<< sol << "\n";
+        cout << "Iteracio " << iter << ": \n";
+        cout << "q: " << q+1 << ", rq = " << rq << ", B(p): " << vb[p]+1 <<  ", theta*: " << theta << ", z: "<< sol << "\n";
+    
         for(int i = 0; i < nB; ++i)
             if(vnb[i] == q)
                 vnb[i] = vb[p];
         vb[p] = q;
-        DEBUG(vb); DEBUG(vnb);
-        DEBUG(x); DEBUG(d);
         cerr << endl;
         
 
@@ -179,14 +185,10 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
             aPhase1[i][j] = a[i][j];
         aPhase1[i][i+n] = ld(1);
     }
-    cerr << "Inici fase 1: \n";
+    cout << "Phase 1: \n";
     int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, vnbPhase1, bland, invAb, iter);
     
     //TODO: problemes de degeneracio?
-    //es poden guardar les degenerades i canviarles per nb no no artificials qualsevols
-    //caldria updatejar la inversa amb la mateixa recalculateAbinv?
-    //pero no totes serveixen -> es un puto palo
-    // eliminem les variables extres
     sort(vnbPhase1.begin(), vnbPhase1.end());
     for (int i=0; i<m; i++) vnbPhase1.pop_back();
 
@@ -203,11 +205,31 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     for(int i = 0; i < n; ++i)
         xsol[i] = x[i];
 
-    cerr << "Inici fase 2: \n";
-    return phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
+    cout << "\n Phase II: \n";
+    int solKind = phase2(a, xsol, b, c, vbPhase1, vnbPhase1, bland, invAb, iter);
+    if (solKind == 1){
+        cout << "An optimal solution has been found:" << endl;
+        cout << "VB*:" << endl;
+        for(int i = 0; i < vbPhase1.size(); ++i)
+            cout << " " << vbPhase1[i]+1;
+        cout << endl;
+        cout << "VNB*:" << endl;
+        for(int i = 0; i < vnbPhase1.size(); ++i)
+            cout << " " << vnbPhase1[i]+1;
+        cout << endl;
+        cout << "x*:" << endl;
+        ld ans(0);
+        for (int i=0; i<(int)c.size() and i <(int)xsol.size(); i++) {
+            ans += c[i]*xsol[i];
+            cout << "    " << xsol[i] << endl;
+        }
+        cout << "z*: " << ans << endl;
+        
+    }
+    return solKind;
 }
 
-int main2() {
+int main() {
     int n, m;
     cin >> n >> m;
     
@@ -235,13 +257,13 @@ int main2() {
     }
 
     vr sol;
+    // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
     int solFinal = simplex(A, B, C, sol, true);
+    if(solFinal == 2)
+        cout << "The problem is unbounded" << endl;
+    else if(solFinal == 3)
+        cout << "The problem is degenerated" << endl;
+    else if(solFinal == 4)
+        cout << "The are not factible solutions" << endl;
     
-    cout << solFinal << " -> x:" << endl;
-    ld ans(0);
-    for (int i=0; i<(int)C.size() and i <(int)sol.size(); i++) {
-        ans += C[i]*sol[i];
-        cerr << sol[i] << endl;
-    }
-    cout << "opt: " << ans << endl;
 }
