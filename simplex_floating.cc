@@ -74,13 +74,11 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
     int m = a.size(), n = x.size(), nB = n-m;
     set<vector<int>> cicle; 
     while (++iter) {
-        // calcular Ab^-1 un cop i despres updatejar????
-        // calcular r
+        
         vr r = calculateR(c, invAb, vb, vnb, a);
 
         bool optim = true;
 
-        // si r >= 0 acabat
         for(int i = 0; i < nB; ++i)
             if(r[i] < -EPS)
                 optim = false;
@@ -90,12 +88,10 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             
             return 1;
         }
-        // seleccionar q dentrada
-        // q index real que entra
+
         int q = -1;
         ld rq = 0;
         if(bland){
-            // per la regla de bland
             for(int i = 0; i < nB; ++i)
                 if(r[i] < -EPS and (q == -1 or vnb[i] < q)){
                     q = vnb[i];
@@ -103,8 +99,6 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
                 }
         }
         else{
-            // pel minim cost reduit
-
             for(int i = 0; i < nB; ++i)
                 if((q == -1 and r[i] < -EPS) or (q != -1 and r[i] < rq)){
                     q = vnb[i];
@@ -115,17 +109,15 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             cicle.insert(vb);
         }
        
-        // calcular d
         vr d = calculateD(invAb, q, a);
 
-        // si Db >= 0 ilimitat acabat
+        // if Db >= 0 unlimited
         bool unbounded = true;
 
         for(int i = 0; i < m; ++i)
             if(d[i] < -EPS) unbounded = false;
         if(unbounded) return 2;
 
-        // p posicio a la base de la variable que surt
         int p = -1;
         ld theta = INF;
         for(int i = 0; i < m; ++i){
@@ -151,8 +143,6 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
                 vnb[i] = vb[p];
         vb[p] = q;
         
-
-        // recalcular invAb
         recalculateAbinv(invAb, p, d);
     }
 }
@@ -161,7 +151,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
 // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
 int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     int n = c.size(), m = a.size();
-    // iniciar a ampliada,construir nova b
+
     int iter = 0;
     vr x(n+m, ld(0));
     vr cPhase1(n+m, ld(0));
@@ -189,7 +179,6 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     cout << "Phase 1: \n";
     int resultPhase1 = phase2(aPhase1, x, b, cPhase1, vbPhase1, vnbPhase1, bland, invAb, iter);
     
-    //TODO: problemes de degeneracio?
     sort(vnbPhase1.begin(), vnbPhase1.end());
     for (int i=0; i<m; i++) vnbPhase1.pop_back();
 
@@ -201,7 +190,6 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     if(not factible)
         return 4;
 
-    // cridar phase2 amb la SBF trobada i la a,b,c originals
     xsol = vr(n);
     for(int i = 0; i < n; ++i)
         xsol[i] = x[i];
@@ -258,8 +246,9 @@ int main() {
     }
 
     vr sol;
-    // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
+    
     cout << "SIMPLEX AMB REGLA DE BLAND" << endl << endl;
+    // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
     int solFinal = simplex(A, B, C, sol, true);
     if(solFinal == 2)
         cout << "The problem is unbounded" << endl;
