@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define DEBUG(cnt) {cerr << #cnt << ": "; for(auto vrb : cnt) cerr << vrb << ", "; cerr << endl;}
-
 using ld = long double;
 using vr = vector<ld>;
 using vvr = vector<vr>;
@@ -74,7 +72,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
     int m = a.size(), n = x.size(), nB = n-m;
     set<vector<int>> cicle; 
     while (++iter) {
-        
+
         vr r = calculateR(c, invAb, vb, vnb, a);
 
         bool optim = true;
@@ -155,8 +153,10 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     int iter = 0;
     vr x(n+m, ld(0));
     vr cPhase1(n+m, ld(0));
+
     vector<int> vbPhase1;
     vector<int> vnbPhase1;
+
     for(int i = n; i < n+m; ++i) {
         cPhase1[i] = ld(1);
         x[i] = b[i-n];
@@ -258,7 +258,6 @@ int main() {
         cout << "The are not factible solutions" << endl;
 
     cout << endl << string(60,'-') << endl << endl;
-
 
     cout << "SIMPLEX AMB COST MINIM" << endl << endl;
     solFinal = simplex(A, B, C, sol, false);
