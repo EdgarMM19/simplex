@@ -8,6 +8,7 @@ using vr = vector<ld>;
 using vvr = vector<vr>;
 
 const ld INF = 1e9;
+const ld EPS = 1e-7;
 
 vector<ld> calculateR(const vr& c, const vvr& invAb, 
                                 const vector<int>& vb, 
@@ -81,7 +82,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
 
         // si r >= 0 acabat
         for(int i = 0; i < nB; ++i)
-            if(r[i] < ld(0))
+            if(r[i] < -EPS)
                 optim = false;
         if(optim){
             cout << "Iteration " << iter << "\n";
@@ -96,7 +97,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         if(bland){
             // per la regla de bland
             for(int i = 0; i < nB; ++i)
-                if(r[i] < ld(0) and (q == -1 or vnb[i] < q)){
+                if(r[i] < -EPS and (q == -1 or vnb[i] < q)){
                     q = vnb[i];
                     rq = r[i];
                 }
@@ -105,7 +106,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
             // pel minim cost reduit
 
             for(int i = 0; i < nB; ++i)
-                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < rq)){
+                if((q == -1 and r[i] < -EPS) or (q != -1 and r[i] < rq)){
                     q = vnb[i];
                     rq = r[i];
                 }
@@ -121,14 +122,14 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         bool unbounded = true;
 
         for(int i = 0; i < m; ++i)
-            if(d[i] < ld(0)) unbounded = false;
+            if(d[i] < -EPS) unbounded = false;
         if(unbounded) return 2;
 
         // p posicio a la base de la variable que surt
         int p = -1;
         ld theta = INF;
         for(int i = 0; i < m; ++i){
-            if(d[i] < ld(0) and ((-x[vb[i]])/d[i] < theta or (-x[vb[i]]/d[i] == theta and vb[i] < vb[p]))){
+            if(d[i] < -EPS and ((-x[vb[i]])/d[i] < theta or (-x[vb[i]]/d[i] == theta and vb[i] < vb[p]))){
                 theta = -x[vb[i]]/d[i];
                 p = i;
             }
@@ -195,7 +196,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     // comprovar si existeix SBF
     bool factible = true;
     for(int i = n; i < n+m; ++i)
-        if(x[i] > ld(0)) factible = false;
+        if(x[i] > EPS) factible = false;
     
     if(not factible)
         return 4;

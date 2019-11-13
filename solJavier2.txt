@@ -1,0 +1,132 @@
+SIMPLEX AMB REGLA DE BLAND
+
+Phase 1: 
+Iteration 1: 
+q: 1, rq = -56.000000, B(p): 29, theta*: 2.333333, z: 1562.333333
+ 
+Iteration 2: 
+q: 3, rq = -158.333333, B(p): 30, theta*: 0.079625, z: 1549.725995
+ 
+Iteration 3: 
+q: 2, rq = -60.859485, B(p): 1, theta*: 0.519035, z: 1518.137802
+ 
+Iteration 4: 
+q: 4, rq = -253.528150, B(p): 24, theta*: 0.789089, z: 1318.081547
+ 
+Iteration 5: 
+q: 1, rq = -61.331224, B(p): 3, theta*: 0.160926, z: 1308.211782
+ 
+Iteration 6: 
+q: 5, rq = -126.757182, B(p): 2, theta*: 0.174325, z: 1286.114810
+ 
+Iteration 7: 
+q: 7, rq = -129.852179, B(p): 5, theta*: 0.363875, z: 1238.864888
+ 
+Iteration 8: 
+q: 3, rq = -128.320792, B(p): 4, theta*: 0.446725, z: 1181.540842
+ 
+Iteration 9: 
+q: 8, rq = -239.586233, B(p): 28, theta*: 0.073758, z: 1163.869523
+ 
+Iteration 10: 
+q: 5, rq = -503.965595, B(p): 1, theta*: 0.018596, z: 1154.498017
+ 
+Iteration 11: 
+q: 11, rq = -14.109129, B(p): 8, theta*: 0.324984, z: 1149.912780
+ 
+Iteration 12: 
+q: 12, rq = -16.461284, B(p): 5, theta*: 0.268487, z: 1145.493141
+ 
+Iteration 13: 
+q: 13, rq = -59.755659, B(p): 23, theta*: 0.265648, z: 1129.619164
+ 
+Iteration 14: 
+q: 1, rq = -14.367225, B(p): 3, theta*: 0.257475, z: 1125.919958
+ 
+Iteration 15: 
+q: 5, rq = -32.795545, B(p): 7, theta*: 0.146817, z: 1121.105022
+ 
+Iteration 16: 
+q: 3, rq = -21.441015, B(p): 1, theta*: 0.208399, z: 1116.636734
+ 
+Iteration 17: 
+q: 8, rq = -15.269656, B(p): 11, theta*: 0.163887, z: 1114.134241
+ 
+Iteration 18: 
+q: 9, rq = -32.214733, B(p): 3, theta*: 0.040158, z: 1112.840573
+ 
+Iteration 19: 
+q: 11, rq = -7.743687, B(p): 8, theta*: 0.175360, z: 1111.482640
+ 
+Iteration 20: 
+q: 16, rq = -1.000000, B(p): 26, theta*: 294.194942, z: 817.287698
+ 
+Iteration 21: 
+q: 8, rq = -189.575558, B(p): 11, theta*: 0.134384, z: 791.811817
+ 
+Iteration 22: 
+q: 3, rq = -90.727605, B(p): 9, theta*: 0.040254, z: 788.159702
+ 
+Iteration 23: 
+q: 4, rq = -11.977123, B(p): 3, theta*: 0.437628, z: 782.918175
+ 
+Iteration 24: 
+q: 23, rq = -0.465091, B(p): 12, theta*: 11.530817, z: 777.555299
+ 
+Iteration 25: 
+q: 24, rq = -0.327820, B(p): 13, theta*: 7.998106, z: 774.933361
+ 
+Iteration 26
+Optimal found 
+The are not factible solutions
+
+------------------------------------------------------------
+
+SIMPLEX AMB COST MINIM
+
+Phase 1: 
+Iteration 1: 
+q: 13, rq = -441.000000, B(p): 22, theta*: 1.000000, z: 1252.000000
+ 
+Iteration 2: 
+q: 5, rq = -716.195652, B(p): 30, theta*: 0.026948, z: 1232.700059
+ 
+Iteration 3: 
+q: 7, rq = -416.944493, B(p): 24, theta*: 0.129504, z: 1178.704052
+ 
+Iteration 4: 
+q: 8, rq = -565.673830, B(p): 28, theta*: 0.017716, z: 1168.682338
+ 
+Iteration 5: 
+q: 9, rq = -232.804785, B(p): 29, theta*: 0.179489, z: 1126.896555
+ 
+Iteration 6: 
+q: 12, rq = -17.798800, B(p): 5, theta*: 0.183106, z: 1123.637489
+ 
+Iteration 7: 
+q: 16, rq = -1.000000, B(p): 26, theta*: 295.375312, z: 828.262178
+ 
+Iteration 8: 
+q: 5, rq = -91.070854, B(p): 12, theta*: 0.137972, z: 815.696962
+ 
+Iteration 9: 
+q: 4, rq = -15.485500, B(p): 5, theta*: 0.457003, z: 808.620043
+ 
+Iteration 10: 
+q: 14, rq = -6.593864, B(p): 9, theta*: 0.300221, z: 806.640426
+ 
+Iteration 11: 
+q: 22, rq = -1.128163, B(p): 13, theta*: 14.228324, z: 790.588554
+ 
+Iteration 12: 
+q: 5, rq = -170.810807, B(p): 14, theta*: 0.069736, z: 778.676920
+ 
+Iteration 13: 
+q: 13, rq = -3.159950, B(p): 7, theta*: 0.354949, z: 777.555299
+ 
+Iteration 14: 
+q: 24, rq = -0.327820, B(p): 13, theta*: 7.998106, z: 774.933361
+ 
+Iteration 15
+Optimal found 
+The are not factible solutions
