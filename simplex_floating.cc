@@ -103,8 +103,9 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         }
         else{
             // pel minim cost reduit
+
             for(int i = 0; i < nB; ++i)
-                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < r[q])){
+                if((q == -1 and r[i] < ld(0)) or (q != -1 and r[i] < rq)){
                     q = vnb[i];
                     rq = r[i];
                 }
@@ -141,14 +142,13 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         ld sol = 0;
         for (int i=0; i<n; i++) sol += c[i]*x[i];
         
-        cout << "Iteracio " << iter << ": \n";
-        cout << "q: " << q+1 << ", rq = " << rq << ", B(p): " << vb[p]+1 <<  ", theta*: " << theta << ", z: "<< sol << "\n";
-    
+        cout << "Iteration " << iter << ": \n";
+        cout << "q: " << q+1 << ", rq = " << rq << ", B(p): " << vb[p]+1 <<  ", theta*: " << theta << ", z: "<< sol << "\n \n";
+        
         for(int i = 0; i < nB; ++i)
             if(vnb[i] == q)
                 vnb[i] = vb[p];
         vb[p] = q;
-        cerr << endl;
         
 
         // recalcular invAb
@@ -232,7 +232,7 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
 int main() {
     int n, m;
     cin >> n >> m;
-    
+    cout << setprecision(6) << fixed;
     vector<vector<ld>> A(n, vector<ld>(m));
     for (int i=0; i<n; i++) {
         for (int j=0; j<m; j++) {
@@ -258,6 +258,7 @@ int main() {
 
     vr sol;
     // returns 1 = optimal found, 2 = unbounded problem, 3 = SBF degenerated, 4 = no factible solution exists
+    cout << "SIMPLEX AMB REGLA DE BLAND" << endl << endl;
     int solFinal = simplex(A, B, C, sol, true);
     if(solFinal == 2)
         cout << "The problem is unbounded" << endl;
@@ -265,5 +266,18 @@ int main() {
         cout << "The problem is degenerated" << endl;
     else if(solFinal == 4)
         cout << "The are not factible solutions" << endl;
+
+    cout << endl << string(60,'-') << endl << endl;
+
+
+    cout << "SIMPLEX AMB COST MINIM" << endl << endl;
+    solFinal = simplex(A, B, C, sol, false);
+    if(solFinal == 2)
+        cout << "The problem is unbounded" << endl;
+    else if(solFinal == 3)
+        cout << "The problem is degenerated" << endl;
+    else if(solFinal == 4)
+        cout << "The are not factible solutions" << endl;
+
     
 }

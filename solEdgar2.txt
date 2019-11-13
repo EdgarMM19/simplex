@@ -1,0 +1,78 @@
+SIMPLEX AMB REGLA DE BLAND
+
+Phase 1: 
+Iteration 1: 
+q: 1, rq = -113.000000, B(p): 24, theta*: 0.397436, z: 1434.089744
+ 
+Iteration 2: 
+q: 2, rq = -89.820513, B(p): 29, theta*: 0.203642, z: 1415.798530
+ 
+Iteration 3: 
+q: 3, rq = -91.575677, B(p): 28, theta*: 0.105161, z: 1406.168304
+ 
+Iteration 4: 
+q: 4, rq = -145.299244, B(p): 3, theta*: 0.199185, z: 1377.226945
+ 
+Iteration 5: 
+q: 5, rq = -157.355134, B(p): 4, theta*: 0.283787, z: 1332.571534
+ 
+Iteration 6: 
+q: 7, rq = -796.232152, B(p): 1, theta*: 0.153150, z: 1210.628495
+ 
+Iteration 7: 
+q: 3, rq = -127.643448, B(p): 2, theta*: 0.065894, z: 1202.217541
+ 
+Iteration 8: 
+q: 4, rq = -32.890218, B(p): 5, theta*: 0.418022, z: 1188.468701
+ 
+Iteration 9: 
+q: 6, rq = -228.077153, B(p): 3, theta*: 0.054770, z: 1175.976942
+ 
+Iteration 10: 
+q: 9, rq = -286.854652, B(p): 30, theta*: 0.319721, z: 1084.263507
+ 
+Iteration 11: 
+q: 3, rq = -47.162519, B(p): 6, theta*: 0.004411, z: 1084.055452
+ 
+Iteration 12: 
+q: 13, rq = -51.945399, B(p): 4, theta*: 0.315528, z: 1067.665201
+ 
+Iteration 13: 
+q: 16, rq = -1.000000, B(p): 26, theta*: 169.624571, z: 898.040630
+ 
+Iteration 14: 
+q: 6, rq = -59.129032, B(p): 7, theta*: 0.093848, z: 892.491504
+ 
+Iteration 15: 
+q: 18, rq = -2.703690, B(p): 3, theta*: 30.073555, z: 811.181944
+ 
+Iteration 16: 
+q: 24, rq = -0.988700, B(p): 18, theta*: 34.382395, z: 777.188067
+ 
+Iteration 17
+Optimal found 
+The are not factible solutions
+
+------------------------------------------------------------
+
+SIMPLEX AMB COST MINIM
+
+Phase 1: 
+Iteration 1: 
+q: 7, rq = -478.000000, B(p): 29, theta*: 0.607143, z: 1188.785714
+ 
+Iteration 2: 
+q: 9, rq = -329.952381, B(p): 28, theta*: 0.460227, z: 1036.932630
+ 
+Iteration 3: 
+q: 13, rq = -1724.704545, B(p): 30, theta*: 0.047822, z: 954.454381
+ 
+Iteration 4: 
+q: 6, rq = -24.363162, B(p): 7, theta*: 0.401985, z: 944.660757
+ 
+Iteration 5: 
+q: 16, rq = -1.000000, B(p): 26, theta*: 167.472689, z: 777.188067
+ 
+Iteration 6
+Optimal found 
+The are not factible solutions

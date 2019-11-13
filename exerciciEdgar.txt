@@ -46,48 +46,6 @@ b=
 
           75
 
-[jh_simplexP] Inici simplex primal amb regla de Bland
-[jh_simplexP]   Fase I
-[jh_simplexP]     IteraciÛ    1 : q =   1, rq =  -314.000, B(p) =  26, theta*=   1.733, z = 1854.977 
-[jh_simplexP]     IteraciÛ    2 : q =   2, rq =  -206.442, B(p) =  30, theta*=   0.400, z = 1772.400 
-[jh_simplexP]     IteraciÛ    3 : q =   5, rq =  -352.592, B(p) =  29, theta*=   0.249, z = 1684.719 
-[jh_simplexP]     IteraciÛ    4 : q =   3, rq =   -64.794, B(p) =   2, theta*=   1.211, z = 1606.252 
-[jh_simplexP]     IteraciÛ    5 : q =   4, rq =  -317.780, B(p) =  28, theta*=   0.023, z = 1598.857 
-[jh_simplexP]     IteraciÛ    6 : q =   2, rq =  -168.684, B(p) =  22, theta*=   1.308, z = 1378.141 
-[jh_simplexP]     IteraciÛ    7 : q =   7, rq =  -141.140, B(p) =   1, theta*=   0.884, z = 1253.423 
-[jh_simplexP]     IteraciÛ    8 : q =   8, rq =  -321.231, B(p) =   2, theta*=   0.578, z = 1067.601 
-[jh_simplexP]     IteraciÛ    9 : q =   9, rq =  -271.907, B(p) =  27, theta*=   0.471, z =  939.416 
-[jh_simplexP]     IteraciÛ   10 : q =   1, rq =  -117.137, B(p) =  24, theta*=   0.596, z =  869.563 
-[jh_simplexP]     IteraciÛ   11 : q =   6, rq =  -170.831, B(p) =  23, theta*=   0.131, z =  847.172 
-[jh_simplexP]     IteraciÛ   12 : q =  10, rq =  -338.817, B(p) =   1, theta*=   0.675, z =  618.360 
-[jh_simplexP]     IteraciÛ   13 : q =  11, rq =  -574.748, B(p) =  25, theta*=   0.955, z =   69.328 
-[jh_simplexP]     IteraciÛ   14 : q =  12, rq =   -56.480, B(p) =  21, theta*=   1.227, z =    0.000 
-[jh_simplexP]     IteraciÛ   15 : q =   0, rq =     0.000, B(p) =   0, theta*=   0.000, z =    0.000 
-[jh_simplexP]     SoluciÛ b‡sica factible trobada, iteraciÛ  15
-[jh_simplexP]   Fase II
-[jh_simplexP]     IteraciÛ   16 : q =   1, rq =   -22.323, B(p) =   5, theta*=   0.070, z =  436.618 
-[jh_simplexP]     IteraciÛ   17 : q =   2, rq =   -92.241, B(p) =   1, theta*=   0.102, z =  427.192 
-[jh_simplexP]     IteraciÛ   18 : q =  13, rq =  -405.942, B(p) =   3, theta*=   0.521, z =  215.514 
-[jh_simplexP]     IteraciÛ   19 : q =   1, rq =  -101.516, B(p) =   7, theta*=   0.603, z =  154.338 
-[jh_simplexP]     IteraciÛ   20 : q =   5, rq =   -60.458, B(p) =   1, theta*=   0.840, z =  103.557 
-[jh_simplexP]     IteraciÛ   21 : q =   3, rq =   -97.837, B(p) =   8, theta*=   0.557, z =   49.102 
-[jh_simplexP]     IteraciÛ   22 : q =   1, rq =  -516.401, B(p) =  12, theta*=   0.023, z =   37.198 
-[jh_simplexP]     IteraciÛ   23 : q =  15, rq =    -0.392, B(p) =   4, theta*= 131.149, z =  -14.227 
-[jh_simplexP]     IteraciÛ   24 : q =  12, rq =    -1.347, B(p) =   5, theta*=   1.590, z =  -16.369 
-[jh_simplexP]     IteraciÛ   25 : q =  17, rq =    -0.319, B(p) =  11, theta*=  61.842, z =  -36.077 
-[jh_simplexP]     IteraciÛ   26 : q =   5, rq =   -30.764, B(p) =  12, theta*=   0.716, z =  -58.109 
-[jh_simplexP]     IteraciÛ   27 : q =  18, rq =    -0.413, B(p) =   5, theta*=  90.964, z =  -95.670 
-[jh_simplexP]     IteraciÛ   28 : q =  11, rq =   -31.448, B(p) =   3, theta*=   0.129, z =  -99.725 
-[jh_simplexP]     IteraciÛ   29 : q =  16, rq =    -0.096, B(p) =  13, theta*=  92.846, z = -108.669 
-[jh_simplexP]     IteraciÛ   30 : q =  19, rq =    -0.364, B(p) =   2, theta*= 109.645, z = -148.632 
-[jh_simplexP]     IteraciÛ   31 : q =   5, rq =   -72.177, B(p) =   6, theta*=   0.288, z = -169.387 
-[jh_simplexP]     IteraciÛ   32 : q =  20, rq =    -0.239, B(p) =   9, theta*= 116.060, z = -197.148 
-[jh_simplexP]     IteraciÛ   33 : q =   6, rq =    -9.946, B(p) =  11, theta*=   1.179, z = -208.874 
-[jh_simplexP]     IteraciÛ   34 : q =  13, rq =    -4.677, B(p) =  15, theta*=   0.474, z = -211.090 
-[jh_simplexP]     IteraciÛ   35 : q =   0, rq =     0.000, B(p) =   0, theta*=   0.000, z = -211.090 
-[jh_simplexP]     SoluciÛ Úptima trobada, iteraciÛ  35, z = -211.089755 
-[jh_simplexP] Fi simplex primal
-
 VB*=
      1     6     5    10    17    18    20    13    19    16
 
@@ -145,44 +103,6 @@ A=
 b=
    208   263   223    31   138   190   242    62    51    71
 
-c=
-  Columns 1 through 18
-
-    23    87    96   -17   -36    -8    11   -31   -68  -100   -89   -79    51   -56     0     0     0     0
-
-  Columns 19 through 20
-
-     0     0
-
-A=
-  Columns 1 through 18
-
-   -81   -96   -87    54    43    28   -14    81    74    17   -16    78    42    85     0     0     0     0
-    41   -57   -97    42    58    47    92   -17    23    95   -26   -68    39    91     0     0     0     0
-     6     4    87   -69     7    52    61    31    22   -93    40    39   -37    73     0     0     0     0
-    78   -62    18    84    79   -96   -15   -43     3    16   -31   -73    76    -3     0     0     0     0
-   -77    91    18   -21   -70    -4    40   -96    94     9    67    56    85   -53    -1     0     0     0
-   -70    -6    42   -15    -3    65    45    97    40     1     8    83   -64   -34     0     1     0     0
-   -15    48   -12   -12    21    96    85     7    27    42   -66   -81    90    13     0     0    -1     0
-    81    45    81    54    87    88    91    99    32    16    11     7    16    84     0     0     0     1
-    89     6    14    46    75     2    84     7    16    79    24    36    92    90     0     0     0     0
-    61    27    46    94    93    10     9    53    90    34    55    78    27    15     0     0     0     0
-
-  Columns 19 through 20
-
-     0     0
-     0     0
-     0     0
-     0     0
-     0     0
-     0     0
-     0     0
-     0     0
-     1     0
-     0     1
-
-b=
-   208   263   223    31   138   190   242    62    51    71
 
 --------------------------------------------------------------------------------------------
 PM/GM/FME Curs 2019-20, exercici implementacio del simplex : cjt. dades 30, problema PL 3
