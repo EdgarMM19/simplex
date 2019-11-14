@@ -161,6 +161,7 @@ int phase2(const vvr& a, vr& x, const vr& b, const vr& c,
         recalculateAbinv(invAb, p, d);
         cerr << "inversa recalculada" << endl;
     }
+    return 3;
 }
 
 // minimizes c*x, restricted to a*x = b,
@@ -198,7 +199,9 @@ int simplex(const vvr& a, const vr& b, const vr& c, vr& xsol, const bool bland){
     // eliminem les variables extres
     sort(vnbPhase1.begin(), vnbPhase1.end());
     for (int i=0; i<m; i++) vnbPhase1.pop_back();
-
+    for(int x : vbPhase1)
+        if(x > n)
+            return 3;    
     // comprovar si existeix SBF
     bool factible = true;
     for(int i = n; i < n+m; ++i)
